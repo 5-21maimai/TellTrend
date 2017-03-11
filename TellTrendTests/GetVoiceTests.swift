@@ -1,15 +1,15 @@
 //
-//  GetVoiceTests.swift
-//  GetVoiceTests
+//  TellTrendTests.swift
+//  TellTrendTests
 //
 //  Created by 松居 麻衣 on 2017/03/04.
 //  Copyright © 2017年 松居 麻衣. All rights reserved.
 //
 
 import XCTest
-@testable import GetVoice
+@testable import TellTrend
 
-class GetVoiceTests: XCTestCase {
+class TellTrendTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
