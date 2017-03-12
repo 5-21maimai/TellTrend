@@ -33,10 +33,11 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
         textView.text = "音声を入力してください"
         
         resultTextView = UITextView(frame: CGRect(x: 50, y: 300, width: 400, height: 50))
-        resultTextView.text = ""
+        resultTextView.text = "結果"
         
         self.view.addSubview(startButton)
         self.view.addSubview(textView)
+        self.view.addSubview(resultTextView)
         
     }
     
@@ -129,6 +130,7 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     
     func onClickStartButton(sender: UIButton){
+        var result : NSString = ""
         if audioEngine.isRunning {
             // 音声エンジン動作中なら停止
             audioEngine.stop()
@@ -158,9 +160,10 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
                 let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
                     
                     if(error == nil){
-                        let result = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                        print(result!)
-                        self.resultTextView.text = result as String!
+                        result = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
+                        print(result)
+                        print(result as String!)
+                        
                     } else {
                         print(error!)
                     }
@@ -168,6 +171,11 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
                 })
                 task.resume()
             }
+            
+            //self.resultTextView.text = result as String!
+            //self.view.addSubview(resultTextView)
+            
+            
             
             return
         }
@@ -189,28 +197,7 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
         }
     }
     
-    func sendParameter(getVoice : String){
-        var urlStr = "http://46.101.200.35:80/post"
-        urlStr = urlStr + getVoice
-        // let urlStrUtf8 : String.UTF8View = urlStr.utf8
-        let request = NSMutableURLRequest(url: NSURL(string: urlStr)! as URL)
-        
-        request.httpMethod = "POST"
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            
-            if(error == nil){
-                let result = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                print(result!)
-            } else {
-                print(error!)
-            }
-            
-        })
-        task.resume()
-        return
-        
-    }
+
     
     
     func createJson(getVoice : String) -> Data?{
@@ -225,6 +212,18 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
         }
 
         return bodyData
+    }
+    
+    func parseJSON(jsonData : Data){
+        
+        do{
+            let jsonText: NSDictionary = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
+            let title = jsonText["title"] as? NSString
+            print(title!)
+        } catch {
+            print("parse error")
+        }
+        
     }
     
     
