@@ -24,15 +24,20 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let displayWidth: CGFloat = self.view.frame.width
+        let displayHeight: CGFloat = self.view.frame.height
+        
         startButton.isEnabled = false
         
-        startButton.frame = CGRect(x: 50, y: 50, width: 400, height: 50)
+        startButton.frame = CGRect(x: 10, y: 50, width: displayWidth-20, height: 50)
         startButton.addTarget(self, action: #selector(ViewController.onClickStartButton(sender:)), for: .touchUpInside)
+        self.startButton.setTitle("ボタンを押すと録音が開始します", for: [])
         
-        textView = UITextView(frame: CGRect(x: 50, y: 100, width: 400, height: 50))
+        textView = UITextView(frame: CGRect(x: 10, y: 100, width: displayWidth-20, height: 50))
         textView.text = "音声を入力してください"
         
-        resultTextView = UITextView(frame: CGRect(x: 50, y: 300, width: 400, height: 50))
+        resultTextView = UITextView(frame: CGRect(x: 10, y: 300, width: displayWidth-20, height: 50))
         resultTextView.text = "結果"
         
         self.view.addSubview(startButton)
@@ -162,7 +167,7 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
                     if(error == nil){
                         result = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
                         print(result)
-                        print(result as String!)
+                        
                         
                     } else {
                         print(error!)
@@ -218,8 +223,10 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
         
         do{
             let jsonText: NSDictionary = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
-            let title = jsonText["title"] as? NSString
-            print(title!)
+             
+            
+            
+            
         } catch {
             print("parse error")
         }
