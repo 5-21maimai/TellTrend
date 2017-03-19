@@ -135,7 +135,6 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     
     func onClickStartButton(sender: UIButton){
-        var result : NSString = ""
         if audioEngine.isRunning {
             // 音声エンジン動作中なら停止
             audioEngine.stop()
@@ -165,8 +164,8 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
                 let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
                     
                     if(error == nil){
-                        result = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
-                        print(result)
+                        let parseTitle = self.parseJSON(jsonData: data!)
+                        print(parseTitle)
                         
                         
                     } else {
@@ -219,18 +218,27 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
         return bodyData
     }
     
-    func parseJSON(jsonData : Data){
+    func parseJSON(jsonData : Data) -> [[String : String]]{
+        var result : [Any] = []
         
-        do{
-            let jsonText: NSDictionary = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
-             
+        let json = JSON(data: jsonData)
+        var count = 0
+        for _ in json {
+            var title : String = ""
+            var info : String = ""
+            title = json["result"][count]["title"].string!
+            print(title)
+            info = json["result"][count]["info"].string!
+            print(info)
             
+            let item = ["title" : title, "info" : info]
             
-            
-        } catch {
-            print("parse error")
+            result.append(item)
+            count = count + 1
         }
         
+        
+        return result as! [[String : String]]
     }
     
     

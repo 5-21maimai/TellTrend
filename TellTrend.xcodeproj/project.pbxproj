@@ -14,6 +14,7 @@
 		13A394BE1E6AC05A007064F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13A394BC1E6AC05A007064F7 /* LaunchScreen.storyboard */; };
 		13A394C91E6AC05A007064F7 /* GetVoiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A394C81E6AC05A007064F7 /* GetVoiceTests.swift */; };
 		13A394D41E6AC05A007064F7 /* GetVoiceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A394D31E6AC05A007064F7 /* GetVoiceUITests.swift */; };
+		13C85DE41E7E73C9007AFB8D /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C85DE31E7E73C8007AFB8D /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		13A394CF1E6AC05A007064F7 /* TellTrendUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TellTrendUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13A394D31E6AC05A007064F7 /* GetVoiceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetVoiceUITests.swift; sourceTree = "<group>"; };
 		13A394D51E6AC05A007064F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		13C85DE31E7E73C8007AFB8D /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				13A394B31E6AC05A007064F7 /* AppDelegate.swift */,
 				13A394B51E6AC05A007064F7 /* ViewController.swift */,
+				13C85DE31E7E73C8007AFB8D /* SwiftyJSON.swift */,
 				13A394B71E6AC05A007064F7 /* Main.storyboard */,
 				13A394BA1E6AC05A007064F7 /* Assets.xcassets */,
 				13A394BC1E6AC05A007064F7 /* LaunchScreen.storyboard */,
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13C85DE41E7E73C9007AFB8D /* SwiftyJSON.swift in Sources */,
 				13A394B61E6AC05A007064F7 /* ViewController.swift in Sources */,
 				13A394B41E6AC05A007064F7 /* AppDelegate.swift in Sources */,
 			);
