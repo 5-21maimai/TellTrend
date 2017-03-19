@@ -37,7 +37,7 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
         textView = UITextView(frame: CGRect(x: 10, y: 100, width: displayWidth-20, height: 50))
         textView.text = "音声を入力してください"
         
-        resultTextView = UITextView(frame: CGRect(x: 10, y: 300, width: displayWidth-20, height: 50))
+        resultTextView = UITextView(frame: CGRect(x: 10, y: 150, width: displayWidth-20, height: 400))
         resultTextView.text = "結果"
         
         self.view.addSubview(startButton)
@@ -112,7 +112,7 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
                 self.recognitionRequest = nil
                 self.recognitionTask = nil
                 self.startButton.isEnabled = true
-                self.startButton.setTitle("Start Recording", for: [])
+                self.startButton.setTitle("ボタンを押すと録音が開始します", for: [])
                 self.startButton.backgroundColor = UIColor.blue
                 
             }
@@ -163,10 +163,19 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
                 
                 let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
                     
+                    
                     if(error == nil){
-                        let parseTitle = self.parseJSON(jsonData: data!)
-                        print(parseTitle)
-                        
+                        DispatchQueue(label: "someTask").async {
+                            let parseResult = self.parseJSON(jsonData: data!)
+                            print(parseResult)
+                            let item = parseResult[0]
+                            let resultInfo : String = item["info"]!
+                            
+                            DispatchQueue.main.async {
+                                print(resultInfo)
+                                self.resultTextView.text = resultInfo
+                            }
+                        }
                         
                     } else {
                         print(error!)
@@ -175,9 +184,6 @@ class ViewController: UIViewController, SFSpeechRecognizerDelegate {
                 })
                 task.resume()
             }
-            
-            //self.resultTextView.text = result as String!
-            //self.view.addSubview(resultTextView)
             
             
             
